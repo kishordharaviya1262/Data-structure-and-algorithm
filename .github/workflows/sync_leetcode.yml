@@ -1,0 +1,20 @@
+name: Sync Leetcode
+
+on:
+  workflow_dispatch: # આનાથી તમે જાતે પણ રન કરી શકશો
+  schedule:
+    - cron: "0 8 * * *" # રોજ સવારે ૮:૦૦ વાગ્યે (UTC) ઓટોમેટિક રન થશે
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Sync Submissions
+        uses: joshcai/leetcode-sync@v1.5
+        with:
+          github-token: ${{ github.token }}
+          leetcode-csrf-token: ${{ secrets.LEETCODE_CSRF_TOKEN }}
+          leetcode-session: ${{ secrets.LEETCODE_SESSION }}
+          destination-folder: solutions # આ ફોલ્ડરમાં કોડ સેવ થશે
+          verbose: true
